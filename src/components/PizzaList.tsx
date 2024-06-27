@@ -26,13 +26,13 @@ const PizzaList: React.FC = () => {
   const navigate = useNavigate(); 
 
   useEffect(() => {
-    console.log("effetto raw e decoded: ", rawToken, decodedToken);
+    ////console.log("effetto raw e decoded: ", rawToken, decodedToken);
   }, []);
 
   const fetchPizzas = async () => {
     
     const savedToken = localStorage.getItem('token');
-    console.log("saved token: ", savedToken);
+    //console.log("saved token: ", savedToken);
 
     try {
       const response = await axios.get('https://localhost:7114/api/PizzaWebApi/GetAllPizzas', {
@@ -41,7 +41,7 @@ const PizzaList: React.FC = () => {
           'Content-Type': 'application/json'
         }
       });
-      console.log(response.data);
+      //console.log(response.data);
       //setPizzas(response.data);  //da togliere
       setFilteredPizzas(response.data);
 
@@ -60,18 +60,18 @@ const PizzaList: React.FC = () => {
             // Verifica il ruolo dell'utente dal token decodificato
             if(decodedToken != null) {
             const userRole = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-            console.log("ruolo: ", userRole);
+            //console.log("ruolo: ", userRole);
             if (!userRole || (userRole !== "ADMIN" && userRole !== "USER")) {
-              console.log("Unauthorized");
+              //console.log("Unauthorized");
               throw new Error('Unauthorized');
             }
-          console.log('Decoded Token:', decodedToken);
-          console.log('Raw Token:', rawToken);
+          //console.log('Decoded Token:', decodedToken);
+          //console.log('Raw Token:', rawToken);
 
           setRole(userRole); 
           }
        } catch(err:any){
-        console.log(err.message);
+        //console.log(err.message);
         setError(err.message);
       }
 };
@@ -80,13 +80,13 @@ const PizzaList: React.FC = () => {
   const searchPizzas = async (term: string) => {
     setError(null);
     const savedToken = localStorage.getItem('token');
-    console.log("saved token: ", savedToken);
+    //console.log("saved token: ", savedToken);
 
     try {
       let response;
       if (/^\d+$/.test(term)) {
         // Se il termine contiene solo numeri, cerca per ID
-        console.log("cerco per id")
+        //console.log("cerco per id")
         response = await axios.get(`https://localhost:7114/api/PizzaWebApi/GetPizzaById?id=${term}`, {
           headers: {
             Authorization: `Bearer ${savedToken}`,
@@ -95,7 +95,7 @@ const PizzaList: React.FC = () => {
         });
       } else {
         // Altrimenti, cerca per nome
-        console.log("cerco per nome")
+        //console.log("cerco per nome")
 
         response = await axios.get(`https://localhost:7114/api/PizzaWebApi/GetPizzaByNamePartial/${term}`, {
           headers: {
@@ -104,7 +104,7 @@ const PizzaList: React.FC = () => {
           }
         });
       }
-      console.log(response.data);
+      //console.log(response.data);
       setFilteredPizzas(Array.isArray(response.data) ? response.data : [response.data]);
     } catch (err) {
       setError('Nessuna corrispondenza trovata..');
@@ -127,7 +127,7 @@ const PizzaList: React.FC = () => {
 
   const deletePizza = async (id: number) => {
     const savedToken = localStorage.getItem('token');
-    console.log("saved token: ", savedToken);
+    //console.log("saved token: ", savedToken);
     
     try {
       await axios.delete(`https://localhost:7114/api/PizzaWebApi/DeletePizza/${id}`, {
@@ -146,7 +146,7 @@ const PizzaList: React.FC = () => {
 
   //da togliere
   useEffect(() => {
-    console.log(filteredPizzas)
+    ////console.log(filteredPizzas)
   }, [filteredPizzas]);
 
   useEffect(() => {
