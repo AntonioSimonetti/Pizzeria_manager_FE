@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './AuthContextType';
 import Login from './components/Login';
+import Register from './components/Register';
 import PizzaList from './components/PizzaList';
 import Navbar from './components/Navbar';
 import PizzaForm from './components/AddPizza';
@@ -26,9 +27,10 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/pizzas" element={isLoggedIn ? <><Navbar setIsLoggedIn={setIsLoggedIn}/><PizzaList /></> : <Navigate to="/login" />} />
             <Route path="/add-pizza" element={isLoggedIn ? <><Navbar setIsLoggedIn={setIsLoggedIn}/><PizzaForm /></> : <Navigate to="/login" />} />
-            <Route path="/details-pizza/:id" element={isLoggedIn ? <><Navbar setIsLoggedIn={setIsLoggedIn}/><DetailsPizza /></> : <Navigate to="/login" />} /> {/* Aggiungi la rotta per DetailsPizza */}
+            <Route path="/details-pizza/:id" element={isLoggedIn ? <><Navbar setIsLoggedIn={setIsLoggedIn}/><DetailsPizza /></> : <Navigate to="/login" />} /> 
           </Routes>
         </Router>
     </AuthProvider>

@@ -80,6 +80,7 @@ const Login: React.FC<LoginProps> = ({ setIsLoggedIn }) => {
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </div>
       <button onClick={handleLogin}>Login</button>
+      <button onClick={() => navigate('/register')}>Register</button>
    </div>
        
      
